@@ -1,0 +1,30 @@
+from spike import PrimeHub
+import time
+
+hub = PrimeHub()
+while True:
+    hub.light_matrix.show_image('CLOCK1')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK2')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK3')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK4')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK5')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK6')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK7')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK8')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK9')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK10')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK11')
+    time.sleep(0.1)
+    hub.light_matrix.show_image('CLOCK12')
+    time.sleep(0.1)
+        
