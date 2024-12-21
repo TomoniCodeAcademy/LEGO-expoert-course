@@ -29,7 +29,7 @@ husky = HuskyLens(port.F)
 husky.send_CMD_REQ_ALGO(Algo.COLOR_RECOGNITION)  
 
 # initialize Prime HUB
-hub = PrimeHub()
+prime_hub = PrimeHub()
 
 led_x = 0
 led_y = 0
@@ -45,8 +45,8 @@ while True:
         (_, block_id, x, y, w, h) = object_list[0]
         led_x = int(5 * x / 320)
         led_y = int(5 * y / 240)
-        hub.light_matrix.set_pixel(last_x, last_y,brightness=0)  # turn off current lightning LED  
-        hub.light_matrix.set_pixel(led_x, led_y)  # turn on LED according to Object position
+        prime_hub.light_matrix.set_pixel(last_x, last_y,brightness=0)  # turn off current lightning LED  
+        prime_hub.light_matrix.set_pixel(led_x, led_y)  # turn on LED according to Object position
         last_x = led_x
         last_y = led_y
         print(led_x,led_y)  # for debug
