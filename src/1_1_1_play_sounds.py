@@ -1,7 +1,7 @@
 #
 # file: 1_1_1_play_sounds.py
 # 目的： 効果音を全て再生する  (再生するにはLEGO SPIKE IDEと接続されている必要あり)
-# 学び： iter型データを使って繰り返しを行う
+# 学び： tuple型データから一つずつ値を取り出して繰り返しを行う
 #
 
 from spike import App
