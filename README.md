@@ -4,5 +4,4 @@
 
 ### 参考にさせていただいた資料
 - 東京大学 数理・情報教育研究センター様
-- Pythonプログラミング入門
-- https://utokyo-ipp.github.io/
+- Pythonプログラミング入門  https://utokyo-ipp.github.io/
