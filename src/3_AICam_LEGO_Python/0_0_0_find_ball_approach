@@ -46,10 +46,10 @@ def car_align(x,y,w,h):
         return True
     else:
         if x > CENTER_X:
-            print('LEFT')
+            print('RIGHT')
             motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)
         elif x < CENTER_X:
-            print('RIGHT')
+            print('LEFT')
             motor_pair.move(10, unit='degrees', steering=TURN_LEFT)
         return False
 
