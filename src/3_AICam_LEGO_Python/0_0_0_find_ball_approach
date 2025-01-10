@@ -5,8 +5,12 @@
 
 #
 #target: ball
-#function: camera tilt and car alignand approach ball
-#
+#functions:
+#   1) tilt camera  
+#   2) aligning car to ball
+#   3) approach to ball
+#   (not yet implemented)
+#      Stop the AI-Car when it reaches the ball
 
 import sys
 import time
@@ -66,7 +70,7 @@ def camera_tilt(x,y,w,h):
 
 def main():
     while True:
-        info = husky.read_tags()
+        info = husky.read_tags()    # tags is bug, should be color or blocks
         print(info)
         if len(info) > 0 and info[0][0] == 'block' and info[0][1] == 1:
             (_,_,x,y,w,h) = info[0]
