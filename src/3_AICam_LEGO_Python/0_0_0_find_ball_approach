@@ -1,11 +1,12 @@
+
 #
 # test code for HuskyLens Momoni's Version
-#
+#https://github.com/TomoniCodeAcademy/LEGO-expoert-course/blob/main/src/3_AICam_LEGO_Python/0_0_0_find_ball_approach
 
-# 
-#  target: ball
-#  function: camera tilt and car align  and approach ball
-# 
+#
+#target: ball
+#function: camera tilt and car alignand approach ball
+#
 
 
 
@@ -28,11 +29,10 @@ tilt_motor.set_default_speed(50)
 tilt_motor.run_for_degrees(10)
 
 port.F.mode(port.MODE_FULL_DUPLEX)
-time.sleep(1)                   # need delay for Port setup ??
+time.sleep(1)                # need delay for Port setup ??
 port.F.baud(9600)
 
 husky = HuskyLens(port.F)
-#husky.send_CMD_REQ_ALGO(Algo.TAG_RECOGNITION)
 husky.send_CMD_REQ_ALGO(Algo.COLOR_RECOGNITION)
 
 WIDTH=320
@@ -49,39 +49,40 @@ TURN_LEFT=-100
 #motor_pair.move(1, unit='cm', steering=0)
 
 def car_align(x,y,w,h):
-   if abs(x - CENTER_X) < 20:
-       return True
-   else:
-       if x > CENTER_X:
-           print('LEFT')
-           motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)
-       elif x < CENTER_X:
-           print('RIGHT')
-           motor_pair.move(10, unit='degrees', steering=TURN_LEFT)
-       return False
+    if abs(x - CENTER_X) < 20:
+        return True
+    else:
+        if x > CENTER_X:
+            print('LEFT')
+            motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)
+        elif x < CENTER_X:
+            print('RIGHT')
+            motor_pair.move(10, unit='degrees', steering=TURN_LEFT)
+        return False
 
 
 def camera_tilt(x,y,w,h):
-   if abs(y - CENTER_Y) < 20:
-       return True
-   else:
-       if y > CENTER_Y:
-           tilt_motor.run_for_degrees(-10)
-       elif y < CENTER_Y:
-           tilt_motor.run_for_degrees(10)
-       return False
+    if abs(y - CENTER_Y) < 20:
+        return True
+    else:
+        if y > CENTER_Y:
+            tilt_motor.run_for_degrees(-10)
+        elif y < CENTER_Y:
+            tilt_motor.run_for_degrees(10)
+        return False
 
 def main():
     while True:
         info = husky.read_tags()
         print(info)
-        if len(info) > 0  and info[0][0] == 'block' and info[0][1] == 1:
-           (_,_,x,y,w,h) = info[0]
-           camera_tilt(x,y,w,h)
-           car_align(x,y,w,h)
-           motor_pair.move(10, unit='cm', steering=0)
+        if len(info) > 0 and info[0][0] == 'block' and info[0][1] == 1:
+            (_,_,x,y,w,h) = info[0]
+            camera_tilt(x,y,w,h)
+            car_align(x,y,w,h)
+            motor_pair.move(10, unit='cm', steering=0)
         else:
-           motor_pair.move(20, unit='degrees', steering=TURN_RIGHT)
+            tilt_motor.run_to_position(0,speed=10)
+            motor_pair.move(20, unit='degrees', steering=TURN_RIGHT)
 
 main()
 
