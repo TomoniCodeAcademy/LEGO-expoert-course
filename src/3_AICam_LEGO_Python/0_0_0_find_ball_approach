@@ -1,0 +1,91 @@
+#
+# test code for HuskyLens Momoni's Version
+#
+
+# 
+#  target: ball
+#  function: camera tilt and car align  and approach ball
+# 
+
+
+
+import sys
+import time
+from hub import port
+
+
+sys.path.append('/projects/mylib000')
+from huskylens_lib import Algo
+from huskylens_lib import HuskyLens
+
+from spike import MotorPair
+motor_pair = MotorPair('A', 'B')
+motor_pair.set_default_speed(20)
+
+from spike import Motor
+tilt_motor = Motor('E')
+tilt_motor.set_default_speed(50)
+tilt_motor.run_for_degrees(10)
+
+port.F.mode(port.MODE_FULL_DUPLEX)
+time.sleep(1)                   # need delay for Port setup ??
+port.F.baud(9600)
+
+husky = HuskyLens(port.F)
+#husky.send_CMD_REQ_ALGO(Algo.TAG_RECOGNITION)
+husky.send_CMD_REQ_ALGO(Algo.COLOR_RECOGNITION)
+
+WIDTH=320
+HEIGHT=240
+
+CENTER_X = int(WIDTH / 2)
+CENTER_Y = int(HEIGHT / 2)
+
+TURN_RIGHT=100
+TURN_LEFT=-100
+
+#motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)
+#motor_pair.move(10, unit='degrees', steering=TURN_LEFT)
+#motor_pair.move(1, unit='cm', steering=0)
+
+def car_align(x,y,w,h):
+   if abs(x - CENTER_X) < 20:
+       return True
+   else:
+       if x > CENTER_X:
+           print('LEFT')
+           motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)
+       elif x < CENTER_X:
+           print('RIGHT')
+           motor_pair.move(10, unit='degrees', steering=TURN_LEFT)
+       return False
+
+
+def camera_tilt(x,y,w,h):
+   if abs(y - CENTER_Y) < 20:
+       return True
+   else:
+       if y > CENTER_Y:
+           tilt_motor.run_for_degrees(-10)
+       elif y < CENTER_Y:
+           tilt_motor.run_for_degrees(10)
+       return False
+
+def main():
+    while True:
+        info = husky.read_tags()
+        print(info)
+        if len(info) > 0  and info[0][0] == 'block' and info[0][1] == 1:
+           (_,_,x,y,w,h) = info[0]
+           camera_tilt(x,y,w,h)
+           car_align(x,y,w,h)
+           motor_pair.move(10, unit='cm', steering=0)
+        else:
+           motor_pair.move(20, unit='degrees', steering=TURN_RIGHT)
+
+main()
+
+
+#
+#
+#
