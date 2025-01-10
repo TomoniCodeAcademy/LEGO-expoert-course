@@ -29,7 +29,7 @@ husky.send_CMD_REQ_ALGO(Algo.TAG_RECOGNITION)
 def turn_and_find():
     # turn right
     for _ in range(20):
-        motor_pair.move(35, unit='degrees', steering=100)
+        motor_pair.move(90, unit='degrees', steering=100)
         time.sleep(0.5) # wait for stability
         info = husky.read_tags()
         print(info)
@@ -61,11 +61,17 @@ while True:
     if len(info)>0:
         if info[0][0]=='block' and info[0][1]==1:
             (_,_,x,y,w,h) = info[0]
-            if w > 80 or h > 80:
+            if w > 50 or h > 50:
                 print('complete!')
                 break             # approaching the target is complete
     state = align_target()
     if state is False:
         turn_and_find()
     else:
-        motor_pair.move(360,unit='degrees',steering=0)
+        motor_pair.move(180,unit='degrees',steering=0)
+
+
+from spike import PrimeHub
+hub = PrimeHub()
+hub.speaker.beep(80, 0.3)
+hub.speaker.beep(85, 0.3)
