@@ -2,7 +2,9 @@
 # test code for LEGO SPIKE and HuskyLens 
 #
 # function:  
-#This program ensures the servo motor continuously faces the target TAG.
+# Rotate the AI-Car to search for the tag 
+# Move forward to the detected tag
+# Stop the AI-CAR  when reached to the tag
 
 import sys
 from hub import port
