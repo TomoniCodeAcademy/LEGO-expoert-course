@@ -8,12 +8,9 @@
 #function: camera tilt and car alignand approach ball
 #
 
-
-
 import sys
 import time
 from hub import port
-
 
 sys.path.append('/projects/mylib000')
 from huskylens_lib import Algo
@@ -29,7 +26,7 @@ tilt_motor.set_default_speed(50)
 tilt_motor.run_for_degrees(10)
 
 port.F.mode(port.MODE_FULL_DUPLEX)
-time.sleep(1)                # need delay for Port setup ??
+time.sleep(1)                        # need delay for Port setup ??
 port.F.baud(9600)
 
 husky = HuskyLens(port.F)
@@ -43,10 +40,6 @@ CENTER_Y = int(HEIGHT / 2)
 
 TURN_RIGHT=100
 TURN_LEFT=-100
-
-#motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)
-#motor_pair.move(10, unit='degrees', steering=TURN_LEFT)
-#motor_pair.move(1, unit='cm', steering=0)
 
 def car_align(x,y,w,h):
     if abs(x - CENTER_X) < 20:
@@ -90,3 +83,7 @@ main()
 #
 #
 #
+#motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)
+#motor_pair.move(10, unit='degrees', steering=TURN_LEFT)
+#motor_pair.move(1, unit='cm', steering=0)
+
