@@ -51,10 +51,10 @@ def car_align(x,y,w,h):
     else:
         if x > CENTER_X:
             print('RIGHT')
-            motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)
+            motor_pair.move(10, unit='degrees', steering=TURN_RIGHT)  # why RIGHT? need to debug
         elif x < CENTER_X:
             print('LEFT')
-            motor_pair.move(10, unit='degrees', steering=TURN_LEFT)
+            motor_pair.move(10, unit='degrees', steering=TURN_LEFT)  # why LEFT? need to debug
         return False
 
 
