@@ -44,8 +44,9 @@ CENTER_Y = int(SCREEN_HEIGHT / 2)
 
 TURN_RIGHT = 100
 TURN_LEFT = -100
+GO_STRAIGHT = 0
 
-def car_align(x,y,w,h):
+def car_align(x, y, w, h):
     if abs(x - CENTER_X) < 20:
         return True
     else:
@@ -58,7 +59,7 @@ def car_align(x,y,w,h):
         return False
 
 
-def camera_tilt(x,y,w,h):
+def camera_tilt(x, y, w, h):
     if abs(y - CENTER_Y) < 20:
         return True
     else:
@@ -73,13 +74,13 @@ def main():
         info = husky.read_tags()    # tags is bug, should be color or blocks
         print(info)
         if len(info) > 0 and info[0][0] == 'block' and info[0][1] == 1:
-            (_,_,x,y,w,h) = info[0]
-            camera_tilt(x,y,w,h)
-            car_align(x,y,w,h)
-            motor_pair.move(10, unit='cm', steering=0)
+            (_, _, x, y, w, h) = info[0]
+            camera_tilt(x, y, w, h)
+            car_align(x, y, w, h)
+            motor_pair.move(10, unit='cm', steering=GO_STRAIGHT)
         else:
-            tilt_motor.run_to_position(0,speed=10)
-            tilt_motor.run_to_position(320,speed=10)
+            tilt_motor.run_to_position(0, speed=10)
+            tilt_motor.run_to_position(320, speed=10)
             motor_pair.move(20, unit='degrees', steering=TURN_RIGHT)
 
 main()
