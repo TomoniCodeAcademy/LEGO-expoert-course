@@ -34,7 +34,6 @@ time.sleep(1)                        # need delay for Port setup ??
 port.F.baud(9600)
 
 husky = HuskyLens(port.F)
-husky.send_CMD_REQ_ALGO(Algo.COLOR_RECOGNITION)
 
 SCREEN_WIDTH = 320
 SCREEN_HEIGHT = 240
@@ -46,6 +45,7 @@ TURN_RIGHT = 100
 TURN_LEFT = -100
 GO_STRAIGHT = 0
 
+# Align the car directly facing the target
 def car_align(x, y, w, h):
     if abs(x - CENTER_X) < 20:
         return True
@@ -59,6 +59,7 @@ def car_align(x, y, w, h):
         return False
 
 
+# Adjust the camera vertically to align it directly facing the target
 def camera_tilt(x, y, w, h):
     if abs(y - CENTER_Y) < 20:
         return True
@@ -70,15 +71,23 @@ def camera_tilt(x, y, w, h):
         return False
 
 def main():
+    # set HuskyLens recogtion mode to the color recognition
+    husky.send_CMD_REQ_ALGO(Algo.COLOR_RECOGNITION)
+
     while True:
+        # get target information from HuskyLens
         info = husky.read_tags()    # tags is bug, should be color or blocks
         print(info)
+
+        # Check if the target is within the field of view
         if len(info) > 0 and info[0][0] == 'block' and info[0][1] == 1:
+            # Adjust the camera vertically to align the car directly facing the target and move straight ahead
             (_, _, x, y, w, h) = info[0]
             camera_tilt(x, y, w, h)
             car_align(x, y, w, h)
             motor_pair.move(10, unit='cm', steering=GO_STRAIGHT)
         else:
+            # Tilt the camera downward and pivot turn LEGO SPIKE to find target
             tilt_motor.run_to_position(0, speed=10)
             tilt_motor.run_to_position(320, speed=10)
             motor_pair.move(20, unit='degrees', steering=TURN_RIGHT)
