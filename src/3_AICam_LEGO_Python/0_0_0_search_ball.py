@@ -1,12 +1,14 @@
 #
 #
 #
+
 import time
 import sys
 
 from hub import port
 from spike import MotorPair
 from spike import Motor   
+
 
 #
 # HuskyLens libraries
@@ -31,18 +33,21 @@ motor_e = Motor('E')
 #
 #
 #
-def search_ball(husky, motor_pair, motor_e)
+#
+def search_ball(husky, motor_pair, motor_e):
 
    # set angle
-   set_camera_angle(motor_e) # set horizontal
+   set_camera_angle(motor_e)      # set horizontal
    set_camera_angle(motor_e, 'down')
 
    # start rotate
    motor_pair.start(steering=100, speed=20)
    while True:
        blocks = husky.read_blocks()
-       if(len(blocks) > 0)
+       if(len(blocks) > 0):
             motor_pair.stop()
+            break
+
 
 #----------------------------
 #
@@ -68,7 +73,7 @@ def set_camera_angle(motor, direction='horizontal'):
              motor.run_to_position(90, speed=20)
 
     elif direction == 'down':
-         if position >= 200:
+         if position >= 200 and position <= 300 :
               pass
          else:
              if position > 0:
@@ -76,3 +81,9 @@ def set_camera_angle(motor, direction='horizontal'):
              motor.run_for_degrees(-100, speed=20)
 
 search_ball(husky, motor_pair, motor_e)
+
+
+
+#
+#
+#
