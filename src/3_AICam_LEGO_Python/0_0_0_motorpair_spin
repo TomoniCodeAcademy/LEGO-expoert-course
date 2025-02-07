@@ -1,0 +1,8 @@
+from spike import MotorPair
+import time
+
+motor_pair = MotorPair('A', 'B')
+motor_pair.start(speed=20,steering=100)
+time.sleep(3)
+motor_pair.stop()
+
