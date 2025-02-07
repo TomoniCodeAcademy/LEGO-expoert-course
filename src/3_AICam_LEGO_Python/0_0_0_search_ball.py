@@ -1,14 +1,12 @@
 #
 #
 #
-
 import time
 import sys
 
 from hub import port
 from spike import MotorPair
 from spike import Motor   
-
 
 #
 # HuskyLens libraries
@@ -29,15 +27,13 @@ husky.send_CMD_REQ_ALGO(Algo.COLOR_RECOGNITION)
 motor_pair = MotorPair('A', 'B')
 motor_e = Motor('E')
 
-
 #
 #
 #
 #
 def search_ball(husky, motor_pair, motor_e):
 
-   # set angle
-   set_camera_angle(motor_e)      # set horizontal
+   # set camera angle down
    set_camera_angle(motor_e, 'down')
 
    # start rotate
@@ -45,6 +41,7 @@ def search_ball(husky, motor_pair, motor_e):
    while True:
        blocks = husky.read_blocks()
        if(len(blocks) > 0):
+            print('find ball')
             motor_pair.stop()
             break
 
@@ -81,7 +78,6 @@ def set_camera_angle(motor, direction='horizontal'):
              motor.run_for_degrees(-100, speed=20)
 
 search_ball(husky, motor_pair, motor_e)
-
 
 
 #
