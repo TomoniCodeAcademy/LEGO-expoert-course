@@ -1,0 +1,121 @@
+#
+# target alignment control (2025/02/28)
+#
+
+import sys
+import time
+
+from hub import port
+from spike import Motor
+from spike import MotorPair
+
+SCREEN_WIDTH =320
+SCREEN_HEIGHT =240
+CENTER_X = int(SCREEN_WIDTH / 2)
+CENTER_Y = int(SCREEN_HEIGHT / 2)
+
+#
+# setup HuskyLens
+#
+sys.path.append('/projects/mylib000')
+from huskylens_lib import Algo
+from huskylens_lib import HuskyLens
+
+port.F.mode(port.MODE_FULL_DUPLEX)
+time.sleep(1)                # need delay for Port setup ??
+port.F.baud(9600)
+
+husky = HuskyLens(port.F)
+husky.send_CMD_REQ_ALGO(Algo.COLOR_RECOGNITION)
+
+
+#
+# setup servo motors
+#
+
+# set motor for Camera angle
+motor = Motor('E')
+motor.set_default_speed(30)
+
+# set motor_pair for car move
+motor_pair = MotorPair('A', 'B')
+motor_pair.set_default_speed(30)
+
+
+#
+# car control functions
+#
+def car_spin_right(motor_pair,degrees=10):
+    motor_pair.move(degrees,  unit = 'degrees', steering = 100)
+
+def car_spin_left(motor_pair,degrees=10):
+    motor_pair.move(-degrees,  unit = 'degrees', steering = 100)
+
+#
+# camera control functions
+#
+def move_camera_up(servo,degrees=10):
+    servo.run_for_degrees(degrees)
+
+def move_camera_down(servo,degrees=10):
+    servo.run_for_degrees(-degrees)
+
+#
+# car yaw angle adjust
+#
+def car_yaw_adjust(motor_pair, x):
+        if x > (CENTER_X + 20):
+           if x > 240:
+               print('turn right 25')            
+               car_spin_right(motor_pair,degrees=25)
+           else:
+               print('turn right 10')            
+               car_spin_right(motor_pair,degrees=10)
+        elif x < (CENTER_X - 20):
+           if x < 80:
+               print('turn left  25')            
+               car_spin_left(motor_pair,degrees=25)
+           else:
+               print('turn left 10')            
+               car_spin_left(motor_pair,degrees=10)
+        else:
+           print('xxx')            
+
+#
+# camera angle adjust
+#
+def camera_angle_adjust(motor, y):
+        if y > (CENTER_Y + 10): 
+            if y > 210:
+                print('down 30')
+                move_camera_down(motor,degrees=30)
+            elif y > 180:
+                print('down 20')
+                move_camera_down(motor,degrees=20)
+            else:
+                print('down 10')
+                move_camera_down(motor,degrees=10)
+        elif y < (CENTER_Y - 10): 
+            if y < 30:
+                print('up 30')
+                move_camera_up(motor,degrees=30)
+            elif y < 60:
+                print('up 20')
+                move_camera_up(motor,degrees=20)
+            else:
+                print('up 10')
+                move_camera_up(motor,degrees=10)
+        else:
+             print('zzz')
+
+while True:
+    blocks=husky.read_blocks()
+    if len(blocks) > 0:
+        (obj,id,x,y,w,h)=blocks[0]
+        print('x', x, 'y', y, 'w', w, 'h', h)
+        car_yaw_adjust(motor_pair, x)
+        camera_angle_adjust(motor, y)
+    else:
+        print('no target(by color)')
+        time.sleep(0.1)
+
