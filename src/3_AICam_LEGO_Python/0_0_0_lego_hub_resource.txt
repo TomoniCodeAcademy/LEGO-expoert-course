@@ -1,0 +1,10 @@
+#
+# after boot 
+#
+>>> gc
+<module 'gc'>
+>>> gc.mem_free()
+41536
+>>> dir()
+['__name__', 'hub', 'micropython', 'gc', 'hub_runtime']
+>>>
