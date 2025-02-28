@@ -4,6 +4,7 @@
 #   (1) find target (ball)
 #   (2) move car and camera to align target
 #   (3) if target is lost, then search target with spin a car
+#   (4) Use a beep to indicate activity
 #
 import sys
 import time
@@ -11,6 +12,10 @@ import time
 from hub import port
 from spike import Motor
 from spike import MotorPair
+
+from spike import PrimeHub
+prime_hub = PrimeHub()
+
 
 SCREEN_WIDTH = 320
 SCREEN_HEIGHT = 240
@@ -150,6 +155,14 @@ def search_target():
     car_stop()
     return is_found
 
+def beep_bp():
+    prime_hub.speaker.beep(90,0.1)
+    prime_hub.speaker.beep(95,0.2)
+
+def beep_pb():
+    prime_hub.speaker.beep(85,0.1)
+    prime_hub.speaker.beep(80,0.1)
+
 while True:
     blocks=husky.read_blocks()
     if len(blocks) > 0:
@@ -159,5 +172,7 @@ while True:
         camera_angle_adjust(motor, y)
     else:
         print('no target(by color)')
-        search_target()
-
+        beep_pb()
+        is_found = search_target()
+        if is_found:
+            beep_bp()
