@@ -1,7 +1,10 @@
 #
 # target alignment control (2025/02/28)
+# description:
+#   (1) find target (ball)
+#   (2) move car and camera to align target
+#   (3) if target is lost, then search target with spin a car
 #
-
 import sys
 import time
 
@@ -9,8 +12,8 @@ from hub import port
 from spike import Motor
 from spike import MotorPair
 
-SCREEN_WIDTH =320
-SCREEN_HEIGHT =240
+SCREEN_WIDTH = 320
+SCREEN_HEIGHT = 240
 CENTER_X = int(SCREEN_WIDTH / 2)
 CENTER_Y = int(SCREEN_HEIGHT / 2)
 
@@ -60,6 +63,16 @@ def move_camera_up(servo,degrees=10):
 def move_camera_down(servo,degrees=10):
     servo.run_for_degrees(-degrees)
 
+def set_camera_horizontal(servo):
+    servo.run_to_position(90)
+
+def set_camera_down(servo):
+    servo.run_to_position(20)
+
+def set_camera_up(servo):
+    servo.run_to_position(160)
+
+
 #
 # car yaw angle adjust
 #
@@ -108,6 +121,35 @@ def camera_angle_adjust(motor, y):
         else:
              print('zzz')
 
+
+def car_stop():
+    motor_pair.stop()
+
+def car_spin(speed=20, times=3):
+    motor_pair.start(speed=speed,steering=100)
+    if times != 0:
+        time.sleep(times)
+        motor_pair.stop()
+
+def is_target_found():
+    blocks=husky.read_blocks()
+    if len(blocks) > 0:
+        (obj,id,x,y,w,h) = blocks[0]
+        if id == 1:
+            return True
+    return False
+
+def search_target():
+    is_found = False
+    set_camera_down(motor)
+    car_spin(speed=20, times=0)
+    for _ in range(40):
+        if is_target_found():
+            is_found = True
+            break
+    car_stop()
+    return is_found
+
 while True:
     blocks=husky.read_blocks()
     if len(blocks) > 0:
@@ -117,5 +159,5 @@ while True:
         camera_angle_adjust(motor, y)
     else:
         print('no target(by color)')
-        time.sleep(0.1)
+        search_target()
 
