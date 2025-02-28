@@ -30,11 +30,7 @@ husky.send_CMD_REQ_ALGO(Algo.COLOR_RECOGNITION)
 
 
 motor_pair = MotorPair('A', 'B')
-#motor_pair.move(10, unit='cm', speed=30)
-
 motor_pair.set_default_speed(30)
-motor_pair.move(180, unit = 'degrees', steering = 100)
-
 
 def car_spin_right(motor_pair,degrees=10):
     motor_pair.move(degrees,  unit = 'degrees', steering = 100)
