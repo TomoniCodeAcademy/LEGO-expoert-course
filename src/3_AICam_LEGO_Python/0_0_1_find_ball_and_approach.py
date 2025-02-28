@@ -1,7 +1,6 @@
 #
 # find ball and approach it 
-# date: 2025/02/28 18:00
-#
+# date: 2025/02/28 18:30
 # (1) Search for the target ball while rotating.
 # (2) Approach the target while steering to keep it centered on the screen.
 # (3) Stop when within a certain proximity to the target.
@@ -72,7 +71,7 @@ def search_target():
     print('searching... camera down')
     set_camera_down(motor)
     car_spin(speed=10, times=0)
-    for _ in range(60):
+    for _ in range(70):
         if is_target_found():
             is_found = True
             print('found target')
@@ -83,7 +82,7 @@ def search_target():
     print('searching... camera horizontal')
     set_camera_horizontal(motor)
     car_spin(speed=10, times=0)
-    for _ in range(60):
+    for _ in range(70):
         if is_target_found():
             is_found = True
             print('found target')
@@ -101,7 +100,6 @@ def search_target():
         motor_pair.move(-180,unit = 'degrees', steering = 0, speed=10)
 
     return is_found
-
 
 #
 # car control functions
@@ -155,11 +153,13 @@ def camera_angle(y):
         else:
             move_camera_up(motor,degrees=10)
 
-
 def beep_bp():
     prime_hub.speaker.beep(77, 0.2)                
-    prime_hub.speaker.beep(80, 0.5)
+    prime_hub.speaker.beep(80, 0.2)
 
+def beep_px():
+    prime_hub.speaker.beep(82, 0.2)
+    prime_hub.speaker.beep(85, 0.2)
 
 while True:# for _ in range(10):
     blocks=husky.read_blocks()
@@ -171,7 +171,7 @@ while True:# for _ in range(10):
             speed = 30
         elif w > 130:
             print('reached!!!')
-            beep_bp()
+            beep_px()
             motor_pair.stop()
             speed = 0
             break
