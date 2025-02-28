@@ -4,6 +4,8 @@
 #     Camera tilt controll
 #     2025/02/28
 #
+#  Gear settings:
+#  camera -> Black -> gray -> brown -> servo
 #
 import sys
 import time
