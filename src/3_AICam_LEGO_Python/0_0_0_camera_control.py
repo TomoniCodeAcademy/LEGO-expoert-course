@@ -1,13 +1,18 @@
+#
+# simple camera control
+# gear settings
+# Camera -> black -> gray -> brown -> Servo
+#
 from spike import Motor
 
 motor = Motor('E')
-motor.set_default_speed(10)
+motor.set_default_speed(20)
 
-def set_camera_horizon(servo):
+def set_camera_horizontal(servo):
     servo.run_to_position(90)
 
 def set_camera_up(servo):
-    servo.run_to_position(120)
+    servo.run_to_position(180)
 
 def set_camera_down(servo):
     servo.run_to_position(15)
