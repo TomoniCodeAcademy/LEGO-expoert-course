@@ -1,5 +1,5 @@
 #
-# find ball and approach it 
+# find ball and carry to goal
 # date: 2025/xxxxxx
 # (1) Search for the target ball while rotating.
 # (2) Approach the target while steering to keep it centered on the screen.
