@@ -1,10 +1,10 @@
 #
-# find ball and carry to goal
+# find ball and approach it 
 # date: 2025/xxxxxx
 # (1) Search for the target ball while rotating.
 # (2) Approach the target while steering to keep it centered on the screen.
 # (3) Stop when within a certain proximity to the target.
-# date: 2025/03/07 13:00
+# date: 2025/03/07 15:00
 # (4) find TAG and approach
 # (5) Repeat two processes
 
@@ -35,9 +35,6 @@ SCREEN_WIDTH = 320
 SCREEN_HEIGHT = 240
 CENTER_X = int(SCREEN_WIDTH / 2)
 CENTER_Y = int(SCREEN_HEIGHT / 2)
-
-from spike import DistanceSensor
-dist_sensor = DistanceSensor('C')
 
 
 sys.path.append('/projects/mylib000')
@@ -92,7 +89,7 @@ def search_TAG():
     print('set camera horizontal')
     set_camera_horizontal(motor)
     car_spin(speed=8, times=0)
-    for _ in range(70):
+    for _ in range(100):
         target_check =  is_target_found()
         if target_check == True:
             is_found = True
@@ -294,26 +291,6 @@ def approach_TAG():
             motor_pair.start(speed=speed, steering=-20)
         else:
             motor_pair.start(speed=speed, steering=0)
-
-
-
-DIST_W_MARGIN = 5  # 1cm
-
-def go_strait_and_stop():
-   motor_pair.start(speed=10,steering=0)
-   while True:
-      dist = dist_sensor.get_distance_cm()
-      print(dist)
-      if isinstance(dist,int):
-           if (dist > DIST_W_MARGIN):
-                 dist = dist_sensor.get_distance_cm()
-           else:
-                 break
-      else:
-           break
-   motor_pair.move(90, unit='degrees', steering=0, speed=10)
-
-
 
 
 
