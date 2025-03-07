@@ -36,6 +36,9 @@ SCREEN_HEIGHT = 240
 CENTER_X = int(SCREEN_WIDTH / 2)
 CENTER_Y = int(SCREEN_HEIGHT / 2)
 
+from spike import DistanceSensor
+dist_sensor = DistanceSensor('C')
+
 
 sys.path.append('/projects/mylib000')
 from huskylens_lib import Algo
@@ -291,6 +294,26 @@ def approach_TAG():
             motor_pair.start(speed=speed, steering=-20)
         else:
             motor_pair.start(speed=speed, steering=0)
+
+
+
+DIST_W_MARGIN = 5  # 1cm
+
+def go_strait_and_stop():
+   motor_pair.start(speed=10,steering=0)
+   while True:
+      dist = dist_sensor.get_distance_cm()
+      print(dist)
+      if isinstance(dist,int):
+           if (dist > DIST_W_MARGIN):
+                 dist = dist_sensor.get_distance_cm()
+           else:
+                 break
+      else:
+           break
+   motor_pair.move(90, unit='degrees', steering=0, speed=10)
+
+
 
 
 
