@@ -1,6 +1,6 @@
 #
 # find ball and approach it 
-# final version (v1.0)
+# stable version (v1.0.0)
 # date: 2025/3/14
 # (1) Searching for the ball while circling
 # (2) Approach the ball while adjusting to face it directly
