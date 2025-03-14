@@ -1,7 +1,7 @@
 #
-# find ball and approach it 
+# find ball and approach it
 # stable version (v1.0.0)
-# date: 2025/3/14
+# date: 2025/3/14   15:00
 # (1) Searching for the ball while circling
 # (2) Approach the ball while adjusting to face it directly
 # (3) repeat (1),(2)
@@ -152,10 +152,13 @@ def approach_ball():
         else:
             speed = 20
         if x > (CENTER_X + 20):
+            print('steering>>>>>')
             motor_pair.start(speed=speed, steering=20)
         elif x < (CENTER_X - 20):
+            print('steering<<<<<')
             motor_pair.start(speed=speed, steering=-20)
         else:
+            print('steering ^^^^^^^^')
             motor_pair.start(speed=speed, steering=0)
 
 
@@ -217,7 +220,7 @@ def beep_down():
 
 
 def beep_bp():
-    prime_hub.speaker.beep(77, 0.2)                
+    prime_hub.speaker.beep(77, 0.2)
     prime_hub.speaker.beep(80, 0.2)
 
 def beep_px():
@@ -236,7 +239,7 @@ while True:
             print('not over run')
         else:
             print('over run, so spin back')
-            car_spin_degrees(amount=15,  steering=-100)
+            car_spin_degrees(amount=15,steering=-100)
             if is_target_found():
                 print('adjust succeed')
             else:
@@ -246,4 +249,3 @@ while True:
 
     else:
         print('ball is not found')
-
