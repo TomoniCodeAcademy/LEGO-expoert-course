@@ -7,3 +7,5 @@
   - 1-2. 変数と代入.ipynb
   - 1-3. 値を比べる.ipynb
   - 1-4. 繰り返し文.ipynb
+
+[hoge](./LEGO-expoert-course/text/Readme.md)
