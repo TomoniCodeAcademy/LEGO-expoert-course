@@ -8,5 +8,4 @@
   - 1-3. 値を比べる.ipynb
   - 1-4. 繰り返し文.ipynb
 
-[aaaaa]('./text/0.')
-[リンクテキスト](./path/to/filename.extension)
+[0-1. LEGO_Expertコースについて.ipynb](text/0.%20LEGO%20Expertコースについて/0-1.%20LEGO_Expertコースについて.ipynb)
