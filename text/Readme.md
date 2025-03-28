@@ -8,4 +8,4 @@
   - 1-3. 値を比べる.ipynb
   - 1-4. 繰り返し文.ipynb
 
-[0-1. LEGO_Expertコースについて.ipynb](text/0.%20LEGO%20Expertコースについて/0-1.%20LEGO_Expertコースについて.ipynb)
+[0-1. LEGO_Expertコースについて.ipynb](./0.%20LEGO%20Expertコースについて/0-1.%20LEGO_Expertコースについて.ipynb)
