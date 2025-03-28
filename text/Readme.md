@@ -8,4 +8,4 @@
   - 1-3. 値を比べる.ipynb
   - 1-4. 繰り返し文.ipynb
 
-[hoge](./LEGO-expoert-course/text/Readme.md)
+[hoge](text/0. LEGO Expertコースについて/0-1. LEGO_Expertコースについて.ipynb)
