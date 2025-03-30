@@ -10,4 +10,6 @@
   - 1_5_判断する文.ipynb
   - 1_6_繰り返し文.ipynb
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TomoniCodeAcademy/LEGO-expoert-course/blob/main/text/0.%20LEGO%20Expert%E3%82%B3%E3%83%BC%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/0-1.%20LEGO_Expert%E3%82%B3%E3%83%BC%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.ipynb)
+
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TomoniCodeAcademy/LEGO-expoert-course/blob/ab330cc40ae45564de4c733c6d0ce71dea5f255a/text/1_Python%E5%85%A5%E9%96%80/1_1_print%E3%81%A8%E6%BC%94%E7%AE%97.ipynb)
