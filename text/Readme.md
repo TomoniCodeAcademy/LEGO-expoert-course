@@ -1,7 +1,7 @@
 ## ToMo-Ni LEGO エキスパートコース用の教材です
 
 - 0_LEGO_Expertコースについて
-  - [0_LEGO_Expertコースについて/0_1_LEGO_Expertコースについて.ipynb]
+  - 0_1_LEGO_Expertコースについて.ipynb
 - 1. python入門
   - 1-1. printと演算.ipynb
   - 1-2. 変数と代入.ipynb
