@@ -1,0 +1,63 @@
+#
+#  機能：顔を認識する。知っている人であれば扉を自動で開く
+#        知らない人であれば残念な音楽を鳴らす
+#  file name:  gate_with_ai_camera.py
+#
+#
+import sys
+import time
+from hub import port      # ポート接続用モジュールを読み込む
+from spike import Motor   # モータ用モジュールを読み込む
+
+from spike import App     # アプリケーション用モジュールを読み込む
+app = App()               #  アプリケーションを初期化(音を鳴らすため)
+
+
+
+# HuskyLens用モジュールを読み込む
+sys.path.append('/projects/mylib000')
+from huskylens_lib import Algo
+from huskylens_lib import HuskyLens
+
+# setup serial port
+port.F.mode(port.MODE_FULL_DUPLEX)
+time.sleep(1)
+port.F.baud(9600)
+
+# initialize HusyLens
+husky = HuskyLens(port.F)
+husky.send_CMD_REQ_ALGO(Algo.FACE_RECOGNITION)
+
+
+# モーターを初期化します。
+motorA = Motor('A')
+motorB = Motor('B')
+
+
+while True:
+
+    # read target info from HuskyLens
+    blocks=husky.read_blocks()
+    if len(blocks) > 0:
+        print('!! find target(face) !!')
+        print(blocks)
+        type, id, x, y, w, h = blocks[0]
+        print(type, id, x, y, w, h)
+        if id == 1:
+            print('learned face')
+            motorA.start(speed=-3)
+            motorB.start(speed=3)
+            app.play_sound('Door Creek 2')
+            motorA.stop()
+            motorB.stop()
+        else:
+            print('unkown face')
+            app.play_sound('Lose')
+        time.sleep(0.5)
+    else:
+        print('no target(face)')
+        # close door
+        motorA.run_to_position(0,speed=5)
+        motorB.run_to_position(0,speed=5)
+        time.sleep(0.5)
+
