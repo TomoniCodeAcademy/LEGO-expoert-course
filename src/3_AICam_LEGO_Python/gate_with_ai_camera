@@ -59,5 +59,4 @@ while True:
         # close door
         motorA.run_to_position(0,speed=5)
         motorB.run_to_position(0,speed=5)
-        time.sleep(0.5)
 
