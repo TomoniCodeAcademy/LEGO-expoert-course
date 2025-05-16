@@ -37,53 +37,62 @@ def janken_ready2():
     hub.speaker.beep(note=75, seconds=0.2)
 
 
-def judge(humands_hand, lego_hand):
-    if humans_hand == lego_hand:
+#
+# グーチョキパーの勝ち負け判定
+#
+def judge(humands_hand, legos_hand):
+    if humans_hand == legos_hand:
         return 'draw'
     if humans_hand == 'gu':
-        if lego_hamd == 'par':
-            return 'lego_win'
+        if legos_hamd == 'par':
+            return 'legos_win'
         else:
-            return 'human_win'
+            return 'humans_win'
     elif humans_hand == 'choki':
-        if lego_hamd == 'gu':
-            return 'lego_win'
+        if legos_hamd == 'gu':
+            return 'legos_win'
         else:
-            return 'human_win'
+            return 'humans_win'
     elif humans_hand == 'par':
-        if lego_hamd == 'choki':
-            return 'lego_win'
+        if legos_hamd == 'choki':
+            return 'legos_win'
         else:
-            return 'human_win'
+            return 'humans_win'
     else:  # system error
         return False
 
-while True:
+def main():
+    
+    while True:
 
-    # 最初はグー
-    janken_ready1()
-    hub.light_matrix.show_image(images['gu'])
-    time.sleep(0.8)
+        # 最初はグー
+        janken_ready1()
+        hub.light_matrix.show_image(images['gu'])
+        time.sleep(0.8)
 
-    # じゃんけんぽん
-    janken_ready2()
-    rnd = random.randint(0,2)
-    lego_hand = hands[rnd]
-    print(leg0hand)
-    hub.light_matrix.show_image(images[lego_hand])
-    time.sleep(1)
+        # じゃんけんぽん
+        janken_ready2()
+        rnd = random.randint(0,2)
+        lego_hand = hands[rnd]
+        print(leg0hand)
+        hub.light_matrix.show_image(images[lego_hand])
+        time.sleep(1)
 
-    # 人間の手を読み込む
-    humans_hand = get_humans_hand()
-    # どっちが勝ったか判定する
-    winner = judge(humans_hand, lego_hand)
-    if winner == 'humans_win':
-        pass
-    elif ans == 'legos_win':
-        pass
-    else
-        pass
+        # 人間の手を読み込む
+        humans_hand = get_humans_hand()
 
+        # どちらが勝ったか判定する
+        winner = judge(humans_hand, lego_hand)
+
+        # 勝敗に従って効果音を鳴らして、点数を計算する
+        if winner == 'humans_win':
+            pass
+        elif ans == 'legos_win':
+            pass
+        else
+            pass
+
+main()
 #
 #
 #
