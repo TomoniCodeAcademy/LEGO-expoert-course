@@ -37,6 +37,26 @@ def janken_ready2():
     hub.speaker.beep(note=75, seconds=0.2)
 
 
+def judge(humands_hand, lego_hand):
+    if humans_hand == lego_hand:
+        return 'draw'
+    if humans_hand == 'gu':
+        if lego_hamd == 'par':
+            return 'lego_win'
+        else:
+            return 'human_win'
+    elif humans_hand == 'choki':
+        if lego_hamd == 'gu':
+            return 'lego_win'
+        else:
+            return 'human_win'
+    elif humans_hand == 'par':
+        if lego_hamd == 'choki':
+            return 'lego_win'
+        else:
+            return 'human_win'
+    else:  # system error
+        return False
 
 while True:
 
@@ -48,10 +68,22 @@ while True:
     # じゃんけんぽん
     janken_ready2()
     rnd = random.randint(0,2)
-    hand = hands[rnd]
-    print(hand)
-    hub.light_matrix.show_image(images[hand])
+    lego_hand = hands[rnd]
+    print(leg0hand)
+    hub.light_matrix.show_image(images[lego_hand])
     time.sleep(1)
+
+    # 人間の手を読み込む
+    humans_hand = get_humans_hand()
+    # どっちが勝ったか判定する
+    winner = judge(humans_hand, lego_hand)
+    if winner == 'humans_win':
+        pass
+    elif ans == 'legos_win':
+        pass
+    else
+        pass
+
 #
 #
 #
