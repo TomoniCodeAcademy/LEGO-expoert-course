@@ -1,6 +1,6 @@
 ## ToMo-Ni LEGO エキスパートコース用の教材です
 
-- 0_LEGO_Expertコースについて
+- [0_LEGO_Expertコースについて](0_LEGO_Expertコースについて)
   - [0_1_LEGO_Expertコースについて](0_LEGO_Expertコースについて/0_1_LEGO_Expertコースについて.ipynb)
 - 1_python入門
   - [1_0_Pythonについて](1_Python入門/1_0_Pythonについて.ipynb)
